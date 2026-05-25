@@ -14,7 +14,7 @@ export default function Footer() {
           WebkitTextFillColor: 'transparent',
         }}
       >
-        Portfolio
+        Gyan&apos;s Portfolio
       </span>
       <p className="font-inter text-xs text-cream/20">
         © {new Date().getFullYear()} — All images reserved. Designed with intention.

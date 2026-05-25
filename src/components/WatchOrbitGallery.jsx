@@ -46,7 +46,7 @@ function buildOrbitLayout(count) {
   })
 }
 
-function OrbitBubble({ image, layout, metrics, rotation, isHovered, anyHovered, onHover, onLeave, onClick }) {
+function OrbitBubble({ image, layout, metrics, rotation, isHovered, anyHovered, onHover, onLeave, onOpen }) {
   const [failed, setFailed] = useState(false)
   const radius = layout.radiusKey === 'inner' ? metrics.innerR : metrics.outerR
   const pull = isHovered ? radius * 0.12 : 0
@@ -78,7 +78,11 @@ function OrbitBubble({ image, layout, metrics, rotation, isHovered, anyHovered, 
       onMouseLeave={onLeave}
       onFocus={onHover}
       onBlur={onLeave}
-      onClick={onClick}
+      onPointerDown={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation()
+        onOpen()
+      }}
       aria-label={`View ${image.alt}`}
     >
       <span className="watch-orbit-bubble-ring" aria-hidden />
@@ -111,27 +115,29 @@ export default function WatchOrbitGallery({ images, onOpen }) {
   const metrics = useOrbitMetrics()
   const [hoveredIndex, setHoveredIndex] = useState(null)
   const [rotation, setRotation] = useState(0)
-  const dragRef = useRef({ active: false, lastX: 0 })
+  const dragRef = useRef({ active: false, lastX: 0, moved: false })
   const ringRef = useRef(null)
 
   const layout = useMemo(() => buildOrbitLayout(images.length), [images.length])
   const maxR = metrics.outerR + metrics.bubble
   const ringSize = maxR * 2 + metrics.bubble
 
-  const onPointerDown = useCallback((e) => {
+  const onRingPointerDown = useCallback((e) => {
     if (e.button !== 0) return
-    dragRef.current = { active: true, lastX: e.clientX }
+    if (e.target.closest('.watch-orbit-bubble')) return
+    dragRef.current = { active: true, lastX: e.clientX, moved: false }
     e.currentTarget.setPointerCapture(e.pointerId)
   }, [])
 
-  const onPointerMove = useCallback((e) => {
+  const onRingPointerMove = useCallback((e) => {
     if (!dragRef.current.active) return
     const dx = e.clientX - dragRef.current.lastX
+    if (Math.abs(dx) > 2) dragRef.current.moved = true
     dragRef.current.lastX = e.clientX
     setRotation((r) => r + dx * 0.35)
   }, [])
 
-  const onPointerUp = useCallback((e) => {
+  const onRingPointerUp = useCallback((e) => {
     dragRef.current.active = false
     try {
       e.currentTarget.releasePointerCapture(e.pointerId)
@@ -160,6 +166,10 @@ export default function WatchOrbitGallery({ images, onOpen }) {
         className="watch-orbit-stage"
         style={{ width: metrics.stage, height: metrics.stage }}
         onWheel={onWheel}
+        onPointerDown={onRingPointerDown}
+        onPointerMove={onRingPointerMove}
+        onPointerUp={onRingPointerUp}
+        onPointerCancel={onRingPointerUp}
       >
         <div className="watch-orbit-center" aria-hidden>
           <span className="font-bebas text-4xl text-cream/10 tracking-widest">◉</span>
@@ -176,10 +186,6 @@ export default function WatchOrbitGallery({ images, onOpen }) {
           }}
           animate={{ rotate: rotation }}
           transition={{ type: 'spring', stiffness: 120, damping: 20 }}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
         >
           {layout.map((item) => {
             const image = images[item.index]
@@ -194,7 +200,7 @@ export default function WatchOrbitGallery({ images, onOpen }) {
                 rotation={rotation}
                 onHover={() => setHoveredIndex(item.index)}
                 onLeave={() => setHoveredIndex(null)}
-                onClick={() => onOpen(item.index)}
+                onOpen={() => onOpen(item.index)}
               />
             )
           })}

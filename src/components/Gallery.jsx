@@ -96,6 +96,7 @@ export default function Gallery() {
           onClose={closeLightbox}
           onNext={nextImage}
           onPrev={prevImage}
+          onGoTo={setLightboxIndex}
         />
       )}
     </section>

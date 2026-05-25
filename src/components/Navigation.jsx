@@ -42,7 +42,7 @@ export default function Navigation() {
           className="font-bebas text-2xl tracking-widest text-accent-gradient cursor-none"
           style={{ background: 'linear-gradient(135deg, #0358b9, #4a8fd4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
         >
-          Portfolio
+          Gyan&apos;s Portfolio
         </a>
 
         {/* Desktop links */}
