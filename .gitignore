@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+
+# Vite
+*.local
+
+# Testing / coverage
+coverage/
+
+# HEIC originals (JPG versions are used on the site)
+*.HEIC
+*.heic
+*.HEIF
+*.heif
+
+# Stale duplicate manifest (public/images/manifest.json is the source of truth)
+src/data/
+
+# Debug
+.cache/
