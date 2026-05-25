@@ -39,7 +39,7 @@ function GalleryItem({ image, index, onClick }) {
   return (
     <motion.div
       ref={ref}
-      className="gallery-item relative overflow-hidden cursor-none w-full"
+      className="gallery-item relative overflow-hidden cursor-none w-full aspect-[4/5]"
       style={{
         borderRadius: '4px',
         opacity: visible ? 1 : 0,
@@ -61,7 +61,7 @@ function GalleryItem({ image, index, onClick }) {
     >
       {failed ? (
         <div
-          className="w-full aspect-[4/3] flex items-center justify-center bg-cream/5 text-cream/30 font-inter text-xs"
+          className="absolute inset-0 flex items-center justify-center bg-cream/5 text-cream/30 font-inter text-xs"
           aria-hidden
         >
           Unavailable
@@ -72,10 +72,10 @@ function GalleryItem({ image, index, onClick }) {
           alt={image.alt}
           loading="lazy"
           decoding="async"
-          className="w-full h-auto block"
+          className="absolute inset-0 w-full h-full object-cover object-center"
           onError={() => setFailed(true)}
           style={{
-            transform: hovered ? 'scale(1.03)' : 'scale(1)',
+            transform: hovered ? 'scale(1.06)' : 'scale(1)',
             transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease',
             filter: hovered ? 'brightness(1.05) contrast(1.05)' : 'brightness(0.92) saturate(0.95)',
           }}
@@ -195,7 +195,7 @@ export default function Gallery() {
       </motion.div>
 
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto relative z-10"
+        className="gallery-grid max-w-7xl mx-auto relative z-10"
         style={{ y: gridY }}
       >
         {loading && (
