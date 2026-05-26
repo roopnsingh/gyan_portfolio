@@ -1,33 +1,24 @@
 {
-  "generated": "2026-05-25T17:06:36.749Z",
+  "generated": "2026-05-26T08:03:21.228Z",
   "count": 18,
   "images": [
+    "r1.jpg",
+    "R2.JPG",
     "f44d6c3e-b2a6-49b7-9991-b7a7af03989c.jpg",
     "IMG_2012.JPG",
     "IMG_2724 2.jpg",
     "IMG_2753.jpg",
     "IMG_2785 2.jpg",
-    "IMG_5201 2.jpg",
     "IMG_7880 2.jpg",
     "IMG_8090.JPG",
     "IMG_9683 2.jpg",
     "IMG_9951 2.jpg",
     "IMG_9952.jpg",
-    "IMG_9953.jpg",
     "IMG_9954.JPG",
     "IMG_9955.jpg",
     "IMG_9956.jpg",
     "IMG_9972.jpg",
     "IMG_9973.jpg",
     "IMG_9974.jpg"
-  ],
-  "skipped": [
-    "IMG_2753.HEIC",
-    "IMG_5201 2.heic",
-    "IMG_9952.HEIC",
-    "IMG_9953.HEIC",
-    "IMG_9955.HEIC",
-    "IMG_9956.HEIC",
-    "IMG_9974.HEIC"
   ]
 }

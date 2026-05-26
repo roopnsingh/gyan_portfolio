@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { loadGalleryImages } from '../utils/imageLoader'
 import Lightbox from './Lightbox'
-import WatchOrbitGallery from './WatchOrbitGallery'
+import MasonryGallery from './MasonryGallery'
 import { ParallaxOrbs } from './Parallax'
 
 /* ─── Gallery Section ────────────────────────────────────────────────── */
@@ -29,7 +29,6 @@ export default function Gallery() {
     offset: ['start end', 'end start'],
   })
   const headerY = useTransform(scrollYProgress, [0, 1], [40, -40])
-  const orbitY = useTransform(scrollYProgress, [0, 1], [40, -20])
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -49,14 +48,14 @@ export default function Gallery() {
     <section
       id="gallery"
       ref={sectionRef}
-      className="py-32 px-8 md:px-16 relative overflow-hidden"
+      className="py-32 relative overflow-hidden"
       style={{ background: '#050505' }}
     >
       <ParallaxOrbs />
 
       <motion.div
         ref={headerRef}
-        className="text-center mb-12 md:mb-16 relative z-10"
+        className="text-center mb-12 md:mb-16 relative z-10 px-8 md:px-16"
         style={{ y: headerY }}
         initial={{ opacity: 0 }}
         animate={{ opacity: headerVisible ? 1 : 0 }}
@@ -75,19 +74,16 @@ export default function Gallery() {
         </p>
       </motion.div>
 
-      <motion.div
-        className="relative z-10 flex justify-center"
-        style={{ y: orbitY }}
-      >
+      <div className="relative z-10 w-full">
         {loading && (
-          <p className="text-center font-inter text-sm text-cream/40 py-24">
+          <p className="text-center font-inter text-sm text-cream/40 py-24 px-8">
             Loading gallery…
           </p>
         )}
         {!loading && (
-          <WatchOrbitGallery images={images} onOpen={openLightbox} />
+          <MasonryGallery images={images} onOpen={openLightbox} />
         )}
-      </motion.div>
+      </div>
 
       {lightboxIndex !== null && (
         <Lightbox

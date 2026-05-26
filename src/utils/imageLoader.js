@@ -21,7 +21,6 @@ function toImageEntry(filename, index) {
     src,
     srcFull: src,
     alt: `Photography work ${index + 1}`,
-    aspectRatio: [1.5, 1.0, 0.75, 1.33, 0.9, 1.2][index % 6],
   }
 }
 
@@ -46,7 +45,6 @@ function generatePlaceholderImages(count) {
     src: `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=80`,
     srcFull: `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1920&q=90`,
     alt: `Photography work ${index + 1}`,
-    aspectRatio: [1.5, 1.0, 0.75, 1.33, 0.9, 1.2][index % 6],
   }))
 }
 
